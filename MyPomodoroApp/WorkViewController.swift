@@ -15,48 +15,81 @@ class WorkViewController: UIViewController {
 
     var timer = Timer()
     var isTimerStarted = false
-    var time = 1500
+    var isWorkTimer    = true
+    var isPaused       = false
+    var maxWorkTime    = 5
+    var maxRelaxTime   = 3
+    var currentTime    = 0
+    var openingLabel = "00:05"
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func playButtonTapped(_ sender: Any) {
+        // Ensure stop button is accessible
         stopButton.isEnabled = true
         stopButton.alpha = 1
-        if !isTimerStarted {
+
+        // Timer started, act as pause button
+        if isTimerStarted {
+            isPaused = true
+            timer.invalidate()
+            playButton.setImage(UIImage(named: "playImage"), for: .normal)
+            // Timer not started, start it
+        } else {
             startTimer()
             isTimerStarted = true
             playButton.setImage(UIImage(named: "pauseImage"), for: .normal)
-        } else {
-            timer.invalidate()
-            isTimerStarted = false
-            playButton.setImage(UIImage(named: "playImage"), for: .normal)
         }
     }
 
 
     @IBAction func stopButtonTapped(_ sender: Any) {
-        stopButton.isEnabled = true
+        stopButton.isEnabled = false
+        isWorkTimer = true
         stopButton.alpha = 0.5
+        playButton.setImage(UIImage(named: "playImage"), for: .normal)
         timer.invalidate()
-        time = 1500
+        currentTime = 5
         isTimerStarted = false
-        timerLabel.text = "25:00"
+        timerLabel.text = openingLabel
+        timerLabel.textColor = .systemRed
     }
 
     func startTimer() {
+        if (!isPaused || !isTimerStarted) {
+            currentTime = maxWorkTime
+        }
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
     }
 
     @objc func updateTimer() {
-        time -= 1
+        if isWorkTimer {
+            currentTime -= 1
+
+            // Timer reached zero, start the relax timer
+            if currentTime < 0 {
+                isWorkTimer = false
+                currentTime = maxRelaxTime
+                timerLabel.textColor = .systemGreen
+            }
+        } else {
+            currentTime -= 1
+
+            // Timer reached max relax, start the work timer again
+            if currentTime < 0 {
+                isWorkTimer = true
+                timerLabel.textColor = .systemRed
+                currentTime = maxWorkTime
+            }
+        }
         timerLabel.text = formatTime()
     }
 
     func formatTime() -> String {
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
+        let minutes = Int(currentTime) / 60 % 60
+        let seconds = Int(currentTime) % 60
         return String(format:"%02i:%02i", minutes, seconds)
     }
 
