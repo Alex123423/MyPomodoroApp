@@ -15,7 +15,7 @@ class WorkViewController: UIViewController {
 
     var timer = Timer()
     var isTimerStarted = false
-    var time = 1500
+    var time = 5
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class WorkViewController: UIViewController {
         stopButton.isEnabled = true
         stopButton.alpha = 0.5
         timer.invalidate()
-        time = 1500
+        time = 5
         isTimerStarted = false
         timerLabel.text = "25:00"
     }
@@ -52,6 +52,12 @@ class WorkViewController: UIViewController {
     @objc func updateTimer() {
         time -= 1
         timerLabel.text = formatTime()
+
+        if time == 0 {
+            timer.invalidate()
+            isTimerStarted = false
+            playButton.setImage(UIImage(named: "playImage"), for: .normal)
+        }
     }
 
     func formatTime() -> String {
