@@ -15,7 +15,7 @@ class WorkViewController: UIViewController {
 
     var timer = Timer()
     var isTimerStarted = false
-    var time = 5
+    var time = Timer.Metrics.workTime
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class WorkViewController: UIViewController {
         stopButton.isEnabled = true
         stopButton.alpha = 0.5
         timer.invalidate()
-        time = 5
+        time = Timer.Metrics.workTime
         isTimerStarted = false
         timerLabel.text = "25:00"
     }
@@ -68,4 +68,8 @@ class WorkViewController: UIViewController {
 
 }
 
-
+extension Timer {
+    enum Metrics {
+        static let workTime = 5
+    }
+}
