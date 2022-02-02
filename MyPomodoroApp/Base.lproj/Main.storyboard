@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eq7-rz-roJ">
-                                <rect key="frame" x="123" y="412" width="168.5" height="72"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:05" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eq7-rz-roJ">
+                                <rect key="frame" x="121.5" y="412" width="171.5" height="72"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="60"/>
                                 <color key="textColor" systemColor="systemRedColor"/>

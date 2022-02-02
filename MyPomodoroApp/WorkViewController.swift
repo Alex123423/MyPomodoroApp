@@ -16,14 +16,17 @@ class WorkViewController: UIViewController {
     var timer = Timer()
     var isTimerStarted = false
     var time = Timer.Metrics.workTime
+    var openingLabel = "00:05"
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func playButtonTapped(_ sender: Any) {
+
         stopButton.isEnabled = true
         stopButton.alpha = 1
+
         if !isTimerStarted {
             startTimer()
             isTimerStarted = true
@@ -39,10 +42,11 @@ class WorkViewController: UIViewController {
     @IBAction func stopButtonTapped(_ sender: Any) {
         stopButton.isEnabled = true
         stopButton.alpha = 0.5
+        playButton.setImage(UIImage(named: "playImage"), for: .normal)
         timer.invalidate()
         time = Timer.Metrics.workTime
         isTimerStarted = false
-        timerLabel.text = "25:00"
+        timerLabel.text = openingLabel
     }
 
     func startTimer() {
