@@ -15,65 +15,100 @@ class WorkViewController: UIViewController {
 
     var timer = Timer()
     var isTimerStarted = false
-    var time = Timer.Metrics.workTime
-    var openingLabel = "00:05"
+    var isWorkTimer    = true
+    var isPaused       = false
+    var maxWorkTime    = Timer.Metrics.workTime
+    var maxRelaxTime   = Timer.Metrics.restTime
+    var currentTime    = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func playButtonTapped(_ sender: Any) {
-
+        // Ensure stop button is accessible
         stopButton.isEnabled = true
         stopButton.alpha = 1
 
-        if !isTimerStarted {
+        // Timer started, act as pause button
+        if isTimerStarted {
+            isPaused = true
+            isTimerStarted = false
+            timer.invalidate()
+            playButton.setImage(UIImage(named: "playImage"), for: .normal)
+            // Timer not started, start it.
+        } else {
             startTimer()
+            isPaused = false
             isTimerStarted = true
             playButton.setImage(UIImage(named: "pauseImage"), for: .normal)
-        } else {
-            timer.invalidate()
-            isTimerStarted = false
-            playButton.setImage(UIImage(named: "playImage"), for: .normal)
         }
     }
 
-
     @IBAction func stopButtonTapped(_ sender: Any) {
-        stopButton.isEnabled = true
         stopButton.alpha = 0.5
         playButton.setImage(UIImage(named: "playImage"), for: .normal)
+        timerLabel.textColor = .systemRed
         timer.invalidate()
-        time = Timer.Metrics.workTime
+        currentTime = Timer.Metrics.workTime
+        isWorkTimer = true
         isTimerStarted = false
-        timerLabel.text = openingLabel
+        timerLabel.text = Timer.Labels.workLabel
     }
 
     func startTimer() {
+        if (!isPaused || !isTimerStarted) && timerLabel.textColor == .systemRed {
+            currentTime = maxWorkTime
+        } else if (!isPaused || !isTimerStarted) && timerLabel.textColor == .systemGreen {
+            currentTime = maxRelaxTime
+        }
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(updateTimer)), userInfo: nil, repeats: true)
     }
 
     @objc func updateTimer() {
-        time -= 1
-        timerLabel.text = formatTime()
+        if isWorkTimer {
+            currentTime -= 1
 
-        if time == 0 {
-            timer.invalidate()
-            isTimerStarted = false
-            playButton.setImage(UIImage(named: "playImage"), for: .normal)
+            // Timer reached zero, start the relax timer
+            if (currentTime < 0) {
+                currentTime = Timer.Metrics.restTime
+                isWorkTimer = false
+                isTimerStarted = false
+                timer.invalidate()
+                playButton.setImage(UIImage(named: "playImage"), for: .normal)
+                timerLabel.textColor = .systemGreen
+            }
+        } else {
+            currentTime -= 1
+
+            // Timer reached max relax, start the work timer again
+            if (currentTime < 0) {
+                currentTime = Timer.Metrics.workTime
+                isWorkTimer = true
+                isTimerStarted = false
+                timer.invalidate()
+                playButton.setImage(UIImage(named: "playImage"), for: .normal)
+                timerLabel.textColor = .systemRed
+            }
         }
+
+        timerLabel.text = formatTime()
     }
 
     func formatTime() -> String {
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
+        let minutes = Int(currentTime) / 60 % 60
+        let seconds = Int(currentTime) % 60
         return String(format:"%02i:%02i", minutes, seconds)
     }
-
 }
 
 extension Timer {
     enum Metrics {
         static let workTime = 5
+        static let restTime = 3
+    }
+
+    enum Labels {
+        static let workLabel = "00:05"
     }
 }
