@@ -13,6 +13,7 @@
 		171B92FB2798B82300BEB308 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171B92F92798B82300BEB308 /* Main.storyboard */; };
 		171B92FD2798B82700BEB308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 171B92FC2798B82700BEB308 /* Assets.xcassets */; };
 		171B93002798B82700BEB308 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171B92FE2798B82700BEB308 /* LaunchScreen.storyboard */; };
+		171B93082798B98000BEB308 /* WorkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171B93072798B98000BEB308 /* WorkViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		171B92FC2798B82700BEB308 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		171B92FF2798B82700BEB308 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		171B93012798B82700BEB308 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		171B93072798B98000BEB308 /* WorkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				171B92F32798B82300BEB308 /* AppDelegate.swift */,
 				171B92F52798B82300BEB308 /* SceneDelegate.swift */,
 				171B92F72798B82300BEB308 /* ViewController.swift */,
+				171B93072798B98000BEB308 /* WorkViewController.swift */,
 				171B92F92798B82300BEB308 /* Main.storyboard */,
 				171B92FC2798B82700BEB308 /* Assets.xcassets */,
 				171B92FE2798B82700BEB308 /* LaunchScreen.storyboard */,
@@ -138,7 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				171B930A2798BD9F00BEB308 /* RestViewController.swift in Sources */,
 				171B92F82798B82300BEB308 /* ViewController.swift in Sources */,
+				171B93082798B98000BEB308 /* WorkViewController.swift in Sources */,
 				171B92F42798B82300BEB308 /* AppDelegate.swift in Sources */,
 				171B92F62798B82300BEB308 /* SceneDelegate.swift in Sources */,
 			);
